@@ -32,40 +32,6 @@ const more = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)
 
 /***/ }),
 
-/***/ "./src/components/General.jsx":
-/*!************************************!*\
-  !*** ./src/components/General.jsx ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more.js");
-
-
-
-
-const GeneralSettings = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
-    header: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("General Team Panel")
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("General Settings"),
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"],
-    initialOpen: true
-  }));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GeneralSettings);
-
-/***/ }),
-
 /***/ "./src/components/Notices.jsx":
 /*!************************************!*\
   !*** ./src/components/Notices.jsx ***!
@@ -157,9 +123,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Notices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Notices */ "./src/components/Notices.jsx");
 /* harmony import */ var _SaveButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SaveButton */ "./src/components/SaveButton.jsx");
 /* harmony import */ var _useSettings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./useSettings */ "./src/components/useSettings.jsx");
-/* harmony import */ var _TeamPanel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TeamPanel */ "./src/components/TeamPanel.jsx");
-/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./General */ "./src/components/General.jsx");
-
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more.js");
 
 
 
@@ -169,94 +133,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SettingsPage() {
-  const onSelectActiveTab = tab => {
-    console.log('Active tab is ' + tab);
-  };
-
-  //get the values of useSettings from the above method
-  const {
-    saveSettings
-  } = (0,_useSettings__WEBPACK_IMPORTED_MODULE_6__["default"])();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "wrapperforsettings"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SettingsTitle__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Notices__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
-    className: "my-tab-panel",
-    activeClass: "active-tab",
-    onSelect: onSelectActiveTab,
-    tabs: [{
-      name: 'team',
-      title: 'Team',
-      className: 'tab-team'
-    }, {
-      name: 'general',
-      title: 'General',
-      className: 'tab-general'
-    }]
-  }, tab => {
-    if (tab.name === 'team') {
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TeamPanel__WEBPACK_IMPORTED_MODULE_7__["default"], null);
-    } else {
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_General__WEBPACK_IMPORTED_MODULE_8__["default"], null);
-    }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SaveButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    onClick: saveSettings
-  }));
-}
-
-/***/ }),
-
-/***/ "./src/components/SettingsTitle.jsx":
-/*!******************************************!*\
-  !*** ./src/components/SettingsTitle.jsx ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-const SettingsTitle = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalHeading, {
-    level: 1
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Codewing React Settings Practice', 'codewing-react-settings'));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsTitle);
-
-/***/ }),
-
-/***/ "./src/components/TeamPanel.jsx":
-/*!**************************************!*\
-  !*** ./src/components/TeamPanel.jsx ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more.js");
-/* harmony import */ var _useSettings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useSettings */ "./src/components/useSettings.jsx");
-
-
-
-
-
-const TeamPanel = () => {
   //get the values of useSettings from the above method
   const {
     teammemberone,
@@ -268,12 +144,14 @@ const TeamPanel = () => {
     TeamPosition,
     setTeamPosition,
     saveSettings
-  } = (0,_useSettings__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
+  } = (0,_useSettings__WEBPACK_IMPORTED_MODULE_6__["default"])();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wrapperforsettings"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SettingsTitle__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Notices__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
     header: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Theme Team Panel")
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Team Member Settings"),
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__["default"],
     initialOpen: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
     __nextHasNoMarginBottom: true,
@@ -314,9 +192,38 @@ const TeamPanel = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalToggleGroupControlOption, {
     label: "Senior",
     value: "senior"
-  })))));
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SaveButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    onClick: saveSettings
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/components/SettingsTitle.jsx":
+/*!******************************************!*\
+  !*** ./src/components/SettingsTitle.jsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const SettingsTitle = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalHeading, {
+    level: 1
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Codewing React Settings Practice', 'codewing-react-settings'));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TeamPanel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsTitle);
 
 /***/ }),
 
