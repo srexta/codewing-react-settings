@@ -5,7 +5,7 @@
   "author": "YOUR NAME HERE",
   "scripts": {
     "build": "wp-scripts build",
-    "start": "wp-scripts start"
+    "start": "wp-scripts start --mode development"
   },
   "devDependencies": {
     "@wordpress/scripts": "^27.0.0",

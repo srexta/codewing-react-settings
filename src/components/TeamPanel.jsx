@@ -1,4 +1,3 @@
-import { __ } from '@wordpress/i18n';
 import {
     Panel,
     PanelBody,
@@ -9,23 +8,10 @@ import {
     __experimentalToggleGroupControl as ToggleGroupControl,
     __experimentalToggleGroupControlOption as ToggleGroupControlOption
 } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import { more } from '@wordpress/icons';
-import UseSettings from './useSettings';
 
-const TeamPanel = () => {
-
-    //get the values of useSettings from the above method
-    const {
-        teammemberone,
-        setTeamMemberOne,
-        teammemberonedesc,
-        setTeamMemberOneDesc,
-        EnableDeveloper,
-        setEnableDeveloper,
-        TeamPosition,
-        setTeamPosition,
-        saveSettings
-    } = UseSettings();
+const TeamPanel = ({team, setTeam}) => {
 
     return (
         <Panel header={__("Theme Team Panel")}>
@@ -34,8 +20,8 @@ const TeamPanel = () => {
                     <TextControl
                         __nextHasNoMarginBottom
                         label={__("Enter Team Member Name")}
-                        value={teammemberone}
-                        onChange={(value) => setTeamMemberOne(value)}
+                        value={team.teamName}
+                        onChange={(value) => setTeam({ ...team, teamName: value })}
                     />
                 </PanelRow>
                 <PanelRow>
@@ -47,26 +33,26 @@ const TeamPanel = () => {
                         }}
                         __nextHasNoMarginBottom
                         label={__("Enter Team Member Desc")}
-                        value={teammemberonedesc}
-                        onChange={(value) => setTeamMemberOneDesc(value)}
+                        value={team.teamDesc}
+                        onChange={(value) => setTeam({ ...team, teamDesc: value })}
                         rows='6'
                     />
                 </PanelRow>
                 <PanelRow>
                     <ToggleControl
                         __nextHasNoMarginBottom
-                        checked={EnableDeveloper}
+                        checked={team.enableDeveloper}
                         label={__("Backend developer")}
-                        onChange={setEnableDeveloper}
+                        onChange={(value) => setTeam({ ...team, enableDeveloper: value })}
                     />
                 </PanelRow>
                 <PanelRow>
                     <ToggleGroupControl
                         __nextHasNoMarginBottom
                         isBlock
-                        value={TeamPosition}
+                        value={team.teamPosition}
                         label="Designation Post"
-                        onChange={setTeamPosition}
+                        onChange={(value) => setTeam({ ...team, teamPosition: value })}
                     >
                         <ToggleGroupControlOption
                             label="Intern"

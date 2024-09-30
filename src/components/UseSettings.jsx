@@ -5,19 +5,52 @@ import { useDispatch } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
 
 const UseSettings = () => {
-    const [teammemberone, setTeamMemberOne] = useState('');
-    const [teammemberonedesc, setTeamMemberOneDesc] = useState('');
-    const [EnableDeveloper, setEnableDeveloper] = useState(true);
-    const [TeamPosition, setTeamPosition] = useState('intern');
     const { createSuccessNotice } = useDispatch(noticesStore);
 
+    const [team, setTeam] = useState({
+        teamName: '',
+        teamDesc: '',
+        teamPosition: 'intern',
+        enableDeveloper: true
+    });
+
     useEffect(() => {
-        apiFetch({ path: '/wp/v2/settings' }).then((settings) => {
-            setTeamMemberOne(settings.codewing_react_settings.teammemberone);
-            setTeamMemberOneDesc(settings.codewing_react_settings.teammemberonedesc);
-            setEnableDeveloper(settings.codewing_react_settings.EnableDeveloper);
-            setTeamPosition(settings.codewing_react_settings.TeamPosition);
-        });
+        const controller = new AbortController();
+        const { signal } = controller;
+
+        const retrieveData = async () => {
+            try {
+                const settings = await apiFetch({
+                    path: '/wp/v2/settings',
+                    signal, // Attach signal for aborting request
+                });
+
+                if (settings && settings.codewing_react_settings) {
+                    const { teammemberone, teammemberonedesc, TeamPosition, EnableDeveloper } = settings.codewing_react_settings;
+                    console.log(teammemberone, teammemberonedesc, TeamPosition, EnableDeveloper);
+
+                    setTeam({
+                        teamName: teammemberone || '',
+                        teamDesc: teammemberonedesc || '',
+                        teamPosition: TeamPosition || 'intern',
+                        enableDeveloper: EnableDeveloper !== undefined ? EnableDeveloper : true,
+                    });
+                } else {
+                    console.error('Invalid settings data:', settings);
+                }
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Failed to fetch settings:', error);
+                }
+            }
+        };
+
+        retrieveData();
+
+        return () => {
+            // Cleanup function to cancel the API request if the component unmounts
+            controller.abort();
+        };
     }, []);
 
     const saveSettings = () => {
@@ -26,30 +59,26 @@ const UseSettings = () => {
             method: 'POST',
             data: {
                 codewing_react_settings: {
-                    teammemberone,
-                    teammemberonedesc,
-                    EnableDeveloper,
-                    TeamPosition
+                    teammemberone: team.teamName,
+                    teammemberonedesc: team.teamDesc,
+                    EnableDeveloper: team.enableDeveloper,
+                    TeamPosition: team.teamPosition,
                 },
             },
-        }).then((tab) => {
+        }).then(() => {
             createSuccessNotice(
                 __('Settings saved.', 'codewing-react-settings')
             );
+        }).catch((error) => {
+            console.error('Failed to save settings:', error);
         });
     };
 
     return {
-        teammemberone,
-        setTeamMemberOne,
-        teammemberonedesc,
-        setTeamMemberOneDesc,
-        EnableDeveloper,
-        setEnableDeveloper,
-        TeamPosition,
-        setTeamPosition,
+        team,
+        setTeam,
         saveSettings
     };
 };
 
-export default UseSettings
+export default UseSettings;

@@ -17,6 +17,8 @@ export default function SettingsPage() {
 
     //get the values of useSettings from the above method
     const {
+        team,
+        setTeam,
         saveSettings
     } = UseSettings();
 
@@ -43,7 +45,7 @@ export default function SettingsPage() {
             >
                 {(tab) => {
                     if (tab.name === 'team') {
-                        return <TeamPanel />
+                        return <TeamPanel team ={team} setTeam={setTeam}/>
                     } else {
                         return <GeneralSettings />
                     }
@@ -52,6 +54,6 @@ export default function SettingsPage() {
 
             </TabPanel>
             <SaveButton onClick={saveSettings} />
-        </div >
+        </div>
     )
 }
