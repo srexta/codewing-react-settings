@@ -1,6 +1,8 @@
 import {
     Button,
-    TabPanel
+    TabPanel,
+    Flex,
+    FlexItem
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import GeneralSettings from './General';
@@ -8,14 +10,18 @@ import Notices from './Notices';
 import SettingsTitle from './SettingsTitle';
 import TeamPanel from './TeamPanel';
 import UseSettings from './useSettings';
-
+import { useEffect, useState } from '@wordpress/element';
+import SaveButton from './SaveButton';
 
 export default function SettingsPage() {
+
+    const [isDisabled, setIsDisabled] = useState(true);
 
     const {
         team,
         setTeam,
-        saveSettings
+        saveTeam,
+        removeMember
     } = UseSettings();
 
     const addMember = () => {
@@ -28,6 +34,11 @@ export default function SettingsPage() {
                 teamPosition: 'intern'
             }]
         })
+    }
+
+    const handleSaveTeam = () => {
+        saveTeam();
+        setIsDisabled(true);
     }
 
     return (
@@ -52,7 +63,7 @@ export default function SettingsPage() {
             >
                 {(tab) => {
                     if (tab.name === 'team') {
-                        return <TeamPanel team={team} setTeam={setTeam} saveSettings={saveSettings}/>
+                        return <TeamPanel team={team} setTeam={setTeam} saveTeam={saveTeam} removeMember={removeMember} setIsDisabled={setIsDisabled}/>
                     } else {
                         return <GeneralSettings />
                     }
@@ -60,9 +71,16 @@ export default function SettingsPage() {
                 }
 
             </TabPanel>
-            <Button isPrimary onClick={addMember}>
-                {__("Add New Member")}
-            </Button>
+            <Flex>
+                <FlexItem>
+                    <Button isPrimary onClick={addMember}>
+                        {__("Add New Member")}
+                    </Button>
+                </FlexItem>
+                <FlexItem>
+                    <SaveButton onClick={handleSaveTeam} disabled={isDisabled} />
+                </FlexItem>
+            </Flex>
         </div>
     )
 }

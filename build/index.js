@@ -125,12 +125,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SaveButton = ({
-  onClick
+  onClick,
+  disabled
 }) => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
     variant: "primary",
     onClick: onClick,
-    __next40pxDefaultSize: true
+    disabled: disabled
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save', 'codewing-react-settings'));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SaveButton);
@@ -158,6 +159,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SettingsTitle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SettingsTitle */ "./src/components/SettingsTitle.jsx");
 /* harmony import */ var _TeamPanel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TeamPanel */ "./src/components/TeamPanel.jsx");
 /* harmony import */ var _useSettings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./useSettings */ "./src/components/useSettings.jsx");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _SaveButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SaveButton */ "./src/components/SaveButton.jsx");
+
+
 
 
 
@@ -167,10 +173,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SettingsPage() {
+  const [isDisabled, setIsDisabled] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_8__.useState)(true);
   const {
     team,
     setTeam,
-    saveSettings
+    saveTeam,
+    removeMember
   } = (0,_useSettings__WEBPACK_IMPORTED_MODULE_7__["default"])();
   const addMember = () => {
     setTeam({
@@ -182,6 +190,10 @@ function SettingsPage() {
         teamPosition: 'intern'
       }]
     });
+  };
+  const handleSaveTeam = () => {
+    saveTeam();
+    setIsDisabled(true);
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wrapperforsettings"
@@ -202,15 +214,20 @@ function SettingsPage() {
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TeamPanel__WEBPACK_IMPORTED_MODULE_6__["default"], {
         team: team,
         setTeam: setTeam,
-        saveSettings: saveSettings
+        saveTeam: saveTeam,
+        removeMember: removeMember,
+        setIsDisabled: setIsDisabled
       });
     } else {
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_General__WEBPACK_IMPORTED_MODULE_3__["default"], null);
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     isPrimary: true,
     onClick: addMember
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Add New Member")));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Add New Member"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SaveButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    onClick: handleSaveTeam,
+    disabled: isDisabled
+  }))));
 }
 
 /***/ }),
@@ -259,9 +276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more.js");
-/* harmony import */ var _SaveButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SaveButton */ "./src/components/SaveButton.jsx");
-
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more.js");
 
 
 
@@ -269,7 +284,7 @@ __webpack_require__.r(__webpack_exports__);
 const TeamPanel = ({
   team,
   setTeam,
-  saveSettings
+  setIsDisabled
 }) => {
   const handleMemberChange = (index, field, value) => {
     const updatedTeam = [...team.teamMembers];
@@ -281,13 +296,21 @@ const TeamPanel = ({
       ...team,
       teamMembers: updatedTeam
     });
+    setIsDisabled(false);
+  };
+  const handleMemberRemove = index => {
+    const updatedTeam = team.teamMembers.filter((_, i) => i !== index);
+    setTeam({
+      teamMembers: updatedTeam
+    });
+    setIsDisabled(false);
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Panel, {
     header: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Theme Team Panel")
   }, team.teamMembers.map((member, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
     key: index,
     title: member.teamName !== '' ? `${member.teamName}'s Settings` : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Team Member Settings"),
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"],
     initialOpen: false
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
     __nextHasNoMarginBottom: true,
@@ -328,9 +351,10 @@ const TeamPanel = ({
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.__experimentalToggleGroupControlOption, {
     label: "Senior",
     value: "senior"
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SaveButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onClick: saveSettings
-  })))));
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    isDestructive: true,
+    onClick: () => handleMemberRemove(index)
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Remove Member"))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TeamPanel);
 
@@ -363,7 +387,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const UseSettings = () => {
   const {
-    createSuccessNotice
+    createSuccessNotice,
+    createWarningNotice,
+    createInfoNotice
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_4__.store);
   const [team, setTeam] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)({
     teamMembers: [{
@@ -384,7 +410,6 @@ const UseSettings = () => {
           path: '/wp/v2/settings',
           signal // Attach signal for aborting request
         });
-        console.log(settings.codewing_react_settings);
         if (settings && settings.codewing_react_settings) {
           const {
             teamMembers
@@ -407,7 +432,7 @@ const UseSettings = () => {
       controller.abort();
     };
   }, []);
-  const saveSettings = () => {
+  const saveTeam = () => {
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
       path: '/wp/v2/settings',
       method: 'POST',
@@ -422,10 +447,30 @@ const UseSettings = () => {
       console.error('Failed to save settings:', error);
     });
   };
+  const removeMember = () => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      path: '/wp/v2/settings',
+      method: 'POST',
+      data: {
+        codewing_react_settings: {
+          teamMembers: team.teamMembers
+        }
+      }
+    }).then(() => {
+      createWarningNotice((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Warning!'), {
+        onDismiss: () => {
+          createInfoNotice((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('The member has been removed'));
+        }
+      });
+    }).catch(error => {
+      console.error('Failed to remove member', error);
+    });
+  };
   return {
     team,
     setTeam,
-    saveSettings
+    saveTeam,
+    removeMember
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UseSettings);

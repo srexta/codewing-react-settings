@@ -5,21 +5,27 @@ import {
     TextControl,
     TextareaControl,
     ToggleControl,
+    Button,
     __experimentalToggleGroupControl as ToggleGroupControl,
     __experimentalToggleGroupControlOption as ToggleGroupControlOption
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { more } from '@wordpress/icons';
-import SaveButton from './SaveButton';
 
-const TeamPanel = ({ team, setTeam, saveSettings }) => {
+const TeamPanel = ({ team, setTeam, setIsDisabled }) => {
 
     const handleMemberChange = (index, field, value) => {
         const updatedTeam = [...team.teamMembers];
         updatedTeam[index] = { ...updatedTeam[index], [field]: value };
         setTeam({ ...team, teamMembers: updatedTeam });
+        setIsDisabled(false);
     }
 
+    const handleMemberRemove = (index) => {
+        const updatedTeam = team.teamMembers.filter((_, i) => i !== index);
+        setTeam({ teamMembers: updatedTeam });
+        setIsDisabled(false);
+    }
     return (
         <Panel header={__("Theme Team Panel")}>
             {
@@ -82,7 +88,9 @@ const TeamPanel = ({ team, setTeam, saveSettings }) => {
                             </ToggleGroupControl>
                         </PanelRow>
                         <PanelRow>
-                            <SaveButton onClick={saveSettings} />
+                            <Button isDestructive onClick={() => handleMemberRemove(index)}>
+                                {__("Remove Member")}
+                            </Button>
                         </PanelRow>
                     </PanelBody>
                 ))

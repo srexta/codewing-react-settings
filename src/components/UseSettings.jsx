@@ -1,7 +1,7 @@
-import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { useState, useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 
 const UseSettings = () => {
@@ -29,7 +29,6 @@ const UseSettings = () => {
                     signal, // Attach signal for aborting request
                 });
 
-                console.log(settings.codewing_react_settings);
                 if (settings && settings.codewing_react_settings) {
                     const { teamMembers } = settings.codewing_react_settings;
 
@@ -56,7 +55,7 @@ const UseSettings = () => {
         };
     }, []);
 
-    const saveSettings = () => {
+    const saveTeam = () => {
         apiFetch({
             path: '/wp/v2/settings',
             method: 'POST',
@@ -77,7 +76,7 @@ const UseSettings = () => {
     return {
         team,
         setTeam,
-        saveSettings,
+        saveTeam,
     };
 };
 
