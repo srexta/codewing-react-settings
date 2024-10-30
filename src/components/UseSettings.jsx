@@ -8,10 +8,14 @@ const UseSettings = () => {
     const { createSuccessNotice } = useDispatch(noticesStore);
 
     const [team, setTeam] = useState({
-        teamName: '',
-        teamDesc: '',
-        teamPosition: 'intern',
-        enableDeveloper: true
+        teamMembers: [
+            {
+                teamName: '',
+                teamDesc: '',
+                teamPosition: 'intern',
+                enableDeveloper: false,
+            },
+        ],
     });
 
     useEffect(() => {
@@ -25,15 +29,14 @@ const UseSettings = () => {
                     signal, // Attach signal for aborting request
                 });
 
+                console.log(settings.codewing_react_settings);
                 if (settings && settings.codewing_react_settings) {
-                    const { teammemberone, teammemberonedesc, TeamPosition, EnableDeveloper } = settings.codewing_react_settings;
-                    console.log(teammemberone, teammemberonedesc, TeamPosition, EnableDeveloper);
+                    const { teamMembers } = settings.codewing_react_settings;
 
                     setTeam({
-                        teamName: teammemberone || '',
-                        teamDesc: teammemberonedesc || '',
-                        teamPosition: TeamPosition || 'intern',
-                        enableDeveloper: EnableDeveloper !== undefined ? EnableDeveloper : true,
+                        teamMembers: teamMembers && Array.isArray(teamMembers)
+                            ? teamMembers
+                            : [],
                     });
                 } else {
                     console.error('Invalid settings data:', settings);
@@ -59,10 +62,7 @@ const UseSettings = () => {
             method: 'POST',
             data: {
                 codewing_react_settings: {
-                    teammemberone: team.teamName,
-                    teammemberonedesc: team.teamDesc,
-                    EnableDeveloper: team.enableDeveloper,
-                    TeamPosition: team.teamPosition,
+                    teamMembers: team.teamMembers,
                 },
             },
         }).then(() => {
@@ -77,7 +77,7 @@ const UseSettings = () => {
     return {
         team,
         setTeam,
-        saveSettings
+        saveSettings,
     };
 };
 

@@ -1,26 +1,34 @@
-import { __ } from '@wordpress/i18n';
 import {
+    Button,
     TabPanel
 } from '@wordpress/components';
-import SettingsTitle from './SettingsTitle';
-import Notices from './Notices';
-import SaveButton from './SaveButton';
-import UseSettings from './useSettings';
-import TeamPanel from './TeamPanel';
+import { __ } from '@wordpress/i18n';
 import GeneralSettings from './General';
+import Notices from './Notices';
+import SettingsTitle from './SettingsTitle';
+import TeamPanel from './TeamPanel';
+import UseSettings from './useSettings';
+
 
 export default function SettingsPage() {
 
-    const onSelectActiveTab = (tab) => {
-        console.log('Active tab is ' + tab);
-    }
-
-    //get the values of useSettings from the above method
     const {
         team,
         setTeam,
         saveSettings
     } = UseSettings();
+
+    const addMember = () => {
+        setTeam({
+            ...team,
+            teamMembers: [...team.teamMembers, {
+                teamName: '',
+                teamDesc: '',
+                enableDeveloper: false,
+                teamPosition: 'intern'
+            }]
+        })
+    }
 
     return (
         <div className="wrapperforsettings">
@@ -29,7 +37,6 @@ export default function SettingsPage() {
             <TabPanel
                 className="my-tab-panel"
                 activeClass="active-tab"
-                onSelect={onSelectActiveTab}
                 tabs={[
                     {
                         name: 'team',
@@ -45,7 +52,7 @@ export default function SettingsPage() {
             >
                 {(tab) => {
                     if (tab.name === 'team') {
-                        return <TeamPanel team ={team} setTeam={setTeam}/>
+                        return <TeamPanel team={team} setTeam={setTeam} saveSettings={saveSettings}/>
                     } else {
                         return <GeneralSettings />
                     }
@@ -53,7 +60,9 @@ export default function SettingsPage() {
                 }
 
             </TabPanel>
-            <SaveButton onClick={saveSettings} />
+            <Button isPrimary onClick={addMember}>
+                {__("Add New Member")}
+            </Button>
         </div>
     )
 }
