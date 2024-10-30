@@ -284,9 +284,8 @@ const TeamPanel = ({
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Panel, {
     header: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Theme Team Panel")
-  }, team.teamMembers.map((member, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    key: index
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+  }, team.teamMembers.map((member, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    key: index,
     title: member.teamName !== '' ? `${member.teamName}'s Settings` : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Team Member Settings"),
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
     initialOpen: false
@@ -331,7 +330,7 @@ const TeamPanel = ({
     value: "senior"
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SaveButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     onClick: saveSettings
-  }))))));
+  })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TeamPanel);
 
